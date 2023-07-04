@@ -6,11 +6,10 @@ type Results = {
     data: any[];
 }
 
-interface ProductType {
+export interface IProduct {
     id: number
+    price: number
     title: string
-    price: string
-    priceFormatted: string
 }
 
 
@@ -37,16 +36,15 @@ export default function Home() {
             currency: "BRL"
         });
 
-        const products = data.map((product: ProductType) => {
+        const products = data.map((product: IProduct) => {
             return {
                 id: product.id,
+                price: formatter.format(product.price),
                 title: product.title,
-                price: product.price,
-                priceFormatted: formatter.format(product.price)
             }
         })
 
-        const totalPrice = data.reduce((total: number, product: ProductType) => {
+        const totalPrice = data.reduce((total: number, product: IProduct) => {
             return total + product.price;
         }, 0)
 
